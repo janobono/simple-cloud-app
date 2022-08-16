@@ -36,3 +36,7 @@ docker-compose -f docker-compose-local-dev.yaml down
 ## Config server
 
 - [config-server](./config-server/README.md)
+
+## Eureka server
+
+- [eureka-server](./eureka-server/README.md)
