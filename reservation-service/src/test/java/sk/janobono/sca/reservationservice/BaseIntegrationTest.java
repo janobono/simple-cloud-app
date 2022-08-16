@@ -26,7 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = {
+                "spring.cloud.discovery.enabled=false",
+                "spring.cloud.config.discovery.enabled=false",
+                "spring.cloud.config.enabled=false"
+        }
 )
 @AutoConfigureMockMvc
 @Testcontainers
