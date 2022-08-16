@@ -1,21 +1,10 @@
-FROM maven:3-eclipse-temurin-17 as builder
-
+FROM eclipse-temurin:17-alpine as builder
 WORKDIR app
-
-COPY pom.xml .
-COPY src ./src
-
-RUN mvn clean install -DskipTests
-
-FROM maven:3-eclipse-temurin-17 as finisher
-
-WORKDIR app
-
-COPY --from=builder app/target/*.jar app.jar
-
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM eclipse-temurin:17-jre as production
+FROM eclipse-temurin:17-alpine as production
 
 WORKDIR /app
 
@@ -28,9 +17,9 @@ USER app
 
 EXPOSE 8080
 
-COPY --from=finisher app/dependencies/ ./
-COPY --from=finisher app/spring-boot-loader/ ./
-COPY --from=finisher app/snapshot-dependencies/ ./
-COPY --from=finisher app/application/ ./
+COPY --from=builder app/dependencies/ ./
+COPY --from=builder app/spring-boot-loader/ ./
+COPY --from=builder app/snapshot-dependencies/ ./
+COPY --from=builder app/application/ ./
 
 ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
