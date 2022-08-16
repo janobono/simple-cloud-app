@@ -13,5 +13,43 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql-data:/var/lib/mysql
 
+  configserver:
+    image: sk.janobono.sca/config-server:latest
+    ports:
+      - 9000:8080
+
+  customerservice:
+    image: sk.janobono.sca/customer-service:latest
+    restart: always
+    ports:
+      - 8800:8080
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8080/
+    depends_on:
+      - mysql
+      - configserver
+
+  reservationservice:
+    image: sk.janobono.sca/reservation-service:latest
+    restart: always
+    ports:
+      - 8801:8080
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8080/
+    depends_on:
+      - mysql
+      - configserver
+
+  roomservice:
+    image: sk.janobono.sca/room-service:latest
+    restart: always
+    ports:
+      - 8802:8080
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8080/
+    depends_on:
+      - mysql
+      - configserver
+
 volumes:
   mysql-data:
