@@ -31,7 +31,7 @@ docker-compose -f docker-compose-local-dev.yaml down
 
 - [customer-service](./customer-service/README.md)
 - [reservation-service](./reservation-service/README.md)
-- [room-service](./room-service/README.md) 
+- [room-service](./room-service/README.md)
 
 ## Config server
 
@@ -40,3 +40,7 @@ docker-compose -f docker-compose-local-dev.yaml down
 ## Eureka server
 
 - [eureka-server](./eureka-server/README.md)
+
+## Business services
+
+- [room-reservation-service](./room-reservation-service/README.md)

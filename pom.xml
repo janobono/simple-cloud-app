@@ -16,5 +16,7 @@
 
         <module>config-server</module>
         <module>eureka-server</module>
+
+        <module>room-reservation-service</module>
     </modules>
 </project>

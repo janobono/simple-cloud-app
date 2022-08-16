@@ -62,5 +62,15 @@ services:
       - configserver
       - eurekaserver
 
+  roomreservationservice:
+    image: sk.janobono.sca/room-reservation-service:latest
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - EUREKASERVER=http://eurekaserver:8761/eureka
+    depends_on:
+      - eurekaserver
+
 volumes:
   mysql-data:

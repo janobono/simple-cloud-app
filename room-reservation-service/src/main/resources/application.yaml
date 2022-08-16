@@ -1,0 +1,29 @@
+# ===============================
+# = SERVER
+# ===============================
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: ${CONTEXT_PATH:/api/v1/room-reservations}
+
+# ===============================
+# = LOGGING
+# ===============================
+logging:
+  level:
+    sk.janobono.sca.roomreservationservice: ${LOG_LEVEL:debug}
+
+spring:
+  # ===============================
+  # = APPLICATION
+  # ===============================
+  application:
+    name: roomreservationservice
+
+# ===============================
+# = EUREKA
+# ===============================
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKASERVER:http://localhost:8761/eureka}
