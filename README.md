@@ -32,3 +32,7 @@ docker-compose -f docker-compose-local-dev.yaml down
 - [customer-service](./customer-service/README.md)
 - [reservation-service](./reservation-service/README.md)
 - [room-service](./room-service/README.md) 
+
+## Config server
+
+- [config-server](./config-server/README.md)

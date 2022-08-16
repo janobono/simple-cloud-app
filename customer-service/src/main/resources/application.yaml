@@ -15,6 +15,13 @@ logging:
 
 spring:
   # ===============================
+  # = APPLICATION
+  # ===============================
+  application:
+    name: customerservice
+  config:
+    import: optional:configserver:http://localhost:9000/
+  # ===============================
   # = JPA / HIBERNATE
   # ===============================
   datasource:
