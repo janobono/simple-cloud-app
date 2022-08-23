@@ -2,13 +2,13 @@ package sk.janobono.sca.roomreservationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Configuration;
+import sk.janobono.sca.roomreservationservice.config.ConfigProperties;
 
-@EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication(scanBasePackages = "sk.janobono.sca.roomreservationservice")
+@EnableConfigurationProperties(ConfigProperties.class)
 public class RoomReservationServiceApplication {
 
     public static void main(String[] args) {

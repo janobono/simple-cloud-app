@@ -1,10 +1,10 @@
-FROM eclipse-temurin:17-alpine as builder
+FROM eclipse-temurin:17-jre-alpine as builder
 WORKDIR app
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM eclipse-temurin:17-alpine as production
+FROM eclipse-temurin:17-jre-alpine as production
 
 WORKDIR /app
 

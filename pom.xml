@@ -13,10 +13,6 @@
         <module>customer-service</module>
         <module>reservation-service</module>
         <module>room-service</module>
-
-        <module>config-server</module>
-        <module>eureka-server</module>
-
         <module>room-reservation-service</module>
     </modules>
 </project>

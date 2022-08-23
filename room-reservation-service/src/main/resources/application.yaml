@@ -13,17 +13,10 @@ logging:
   level:
     sk.janobono.sca.roomreservationservice: ${LOG_LEVEL:debug}
 
-spring:
-  # ===============================
-  # = APPLICATION
-  # ===============================
-  application:
-    name: roomreservationservice
-
 # ===============================
-# = EUREKA
+# = APP
 # ===============================
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKASERVER:http://localhost:8761/eureka}
+app:
+  customer-service-url: ${APP_CUSTOMER_SERVICE_URL:http://localhost:8800}
+  reservation-service-url: ${APP_RESERVATION_SERVICE_URL:http://localhost:8801}
+  room-service-url: ${APP_ROOM_SERVICE_URL:http://localhost:8802}

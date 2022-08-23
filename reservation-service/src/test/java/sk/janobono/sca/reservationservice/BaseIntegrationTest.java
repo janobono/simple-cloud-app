@@ -25,14 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = {
-                "spring.cloud.discovery.enabled=false",
-                "spring.cloud.config.discovery.enabled=false",
-                "spring.cloud.config.enabled=false"
-        }
-)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Testcontainers
 public abstract class BaseIntegrationTest {
@@ -46,7 +39,7 @@ public abstract class BaseIntegrationTest {
             .withEnv("MYSQL_ROOT_HOST", "%");
 
     @DynamicPropertySource
-    public static void properties(DynamicPropertyRegistry registry) throws Exception {
+    public static void properties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url",
                 () -> "jdbc:mysql://localhost:" + mysqlDB.getMappedPort(MySQLContainer.MYSQL_PORT) + "/reservation_service"
         );
