@@ -14,6 +14,15 @@ logging:
     sk.janobono.sca.roomreservationservice: ${LOG_LEVEL:debug}
 
 # ===============================
+# = SPRING DOC
+# ===============================
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+# ===============================
 # = APP
 # ===============================
 app:
