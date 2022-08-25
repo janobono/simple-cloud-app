@@ -18,36 +18,62 @@ services:
   customer-service:
     image: sk.janobono.sca/customer-service:latest
     restart: always
-    ports:
-      - 8800:8080
     environment:
       - DB_URL=jdbc:mysql://mysql:3306/customer_service?characterEncoding=UTF-8
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.customer-service.rule=PathPrefix(`/api/v1/customers`)
+      - traefik.http.routers.customer-service.entrypoints=web
+      - traefik.http.services.customer-service.loadbalancer.server.port=8080
 
   reservation-service:
     image: sk.janobono.sca/reservation-service:latest
     restart: always
-    ports:
-      - 8801:8080
     environment:
       - DB_URL=jdbc:mysql://mysql:3306/reservation_service?characterEncoding=UTF-8
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.reservation-service.rule=PathPrefix(`/api/v1/reservations`)
+      - traefik.http.routers.reservation-service.entrypoints=web
+      - traefik.http.services.reservation-service.loadbalancer.server.port=8080
 
   room-service:
     image: sk.janobono.sca/room-service:latest
     restart: always
-    ports:
-      - 8802:8080
     environment:
       - DB_URL=jdbc:mysql://mysql:3306/room_service?characterEncoding=UTF-8
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.room-service.rule=PathPrefix(`/api/v1/rooms`)
+      - traefik.http.routers.room-service.entrypoints=web
+      - traefik.http.services.room-service.loadbalancer.server.port=8080
 
   room-reservation-service:
     image: sk.janobono.sca/room-reservation-service:latest
     restart: always
-    ports:
-      - 8803:8080
     environment:
       - APP_CUSTOMER_SERVICE_URL=http://customer-service:8080
       - APP_RESERVATION_SERVICE_URL=http://reservation-service:8080
       - APP_ROOM_SERVICE_URL=http://room-service:8080
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.room-reservation-service.rule=PathPrefix(`/api/v1/room-reservations`)
+      - traefik.http.routers.room-reservation-service.entrypoints=web
+      - traefik.http.services.room-reservation-service.loadbalancer.server.port=8080
+
+  traefik:
+    image: traefik:v2.8
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--log.level=INFO"
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
   mysql-data:

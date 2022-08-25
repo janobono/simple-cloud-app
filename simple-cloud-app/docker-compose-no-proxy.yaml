@@ -1,0 +1,53 @@
+version: '3.2'
+
+services:
+  mysql:
+    image: mysql:8-debian
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-data:/var/lib/mysql
+
+  customer-service:
+    image: sk.janobono.sca/customer-service:latest
+    restart: always
+    ports:
+      - 8800:8080
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/customer_service?characterEncoding=UTF-8
+
+  reservation-service:
+    image: sk.janobono.sca/reservation-service:latest
+    restart: always
+    ports:
+      - 8801:8080
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/reservation_service?characterEncoding=UTF-8
+
+  room-service:
+    image: sk.janobono.sca/room-service:latest
+    restart: always
+    ports:
+      - 8802:8080
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/room_service?characterEncoding=UTF-8
+
+  room-reservation-service:
+    image: sk.janobono.sca/room-reservation-service:latest
+    restart: always
+    ports:
+      - 8803:8080
+    environment:
+      - APP_CUSTOMER_SERVICE_URL=http://customer-service:8080
+      - APP_RESERVATION_SERVICE_URL=http://reservation-service:8080
+      - APP_ROOM_SERVICE_URL=http://room-service:8080
+
+volumes:
+  mysql-data:
