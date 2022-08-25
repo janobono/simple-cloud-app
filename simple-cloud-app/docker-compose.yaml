@@ -61,6 +61,18 @@ services:
       - traefik.http.routers.room-reservation-service.entrypoints=web
       - traefik.http.services.room-reservation-service.loadbalancer.server.port=8080
 
+  swagger:
+    image: swaggerapi/swagger-ui
+    restart: unless-stopped
+    environment:
+      BASE_URL: /api/doc
+      URLS: '[{name: "customer service", url: "/api/v1/customers/v3/api-docs.yaml"},{name: "reservation service", url: "/api/v1/reservations/v3/api-docs.yaml"},{name: "room service", url: "/api/v1/rooms/v3/api-docs.yaml"},{name: "room reservation service", url: "/api/v1/room-reservations/v3/api-docs.yaml"}]'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.swagger-ui.rule=PathPrefix(`/api/doc`)
+      - traefik.http.routers.swagger-ui.entrypoints=web
+      - traefik.http.services.swagger-ui.loadbalancer.server.port=8080
+
   traefik:
     image: traefik:v2.8
     command:
