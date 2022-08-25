@@ -14,17 +14,16 @@ mvn clean install
 
 ## Local dev
 
-- [Docker Compose](https://docs.docker.com/get-docker/)
 - To start local services run in _simple-cloud-app_ dir
 
 ```shell
-docker-compose -f docker-compose-local-dev.yaml up -d
+docker compose -f docker-compose-local-dev.yaml up -d
 ```
 
 - To stop local services run in _simple-cloud-app_ dir
 
 ```shell
-docker-compose -f docker-compose-local-dev.yaml down
+docker compose -f docker-compose-local-dev.yaml down
 ```
 
 ## Data services
