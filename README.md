@@ -12,19 +12,9 @@ Simple Cloud Application based on Spring Cloud.
 mvn clean install
 ```
 
-## Local dev
+## Local Run
 
-- To start local services run in _simple-cloud-app_ dir
-
-```shell
-docker compose -f docker-compose-local-dev.yaml up -d
-```
-
-- To stop local services run in _simple-cloud-app_ dir
-
-```shell
-docker compose -f docker-compose-local-dev.yaml down
-```
+- [simple-cloud-app](./simple-cloud-app/README.md)
 
 ## Data services
 
